@@ -3,6 +3,7 @@ package nucredit
 import (
 	"encoding/json"
 	"io"
+	"os"
 )
 
 // Subject 科目
@@ -33,6 +34,15 @@ func FromReader(r io.Reader) (*Subjects, error) {
 		return nil, err
 	}
 	return s, nil
+}
+
+// FromFile Fileから読んでSubjectsにして返す
+func FromFile(filename string) (*Subjects, error) {
+	f, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	return FromReader(f)
 }
 
 // FilterFunc フィルタリングの条件
