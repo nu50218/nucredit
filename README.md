@@ -2,6 +2,10 @@
 
 名大の修得科目jsonファイルを扱うライブラリ
 
+## install
+
+`$ go get "github.com/nu50218/nucredit"`
+
 ## sample code
 
 ```go
