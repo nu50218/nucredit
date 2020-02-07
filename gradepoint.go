@@ -2,13 +2,13 @@ package nucredit
 
 import "strings"
 
-// isTargetOfGPA GPAの計算の対象かを返す
-func (subject *Subject) isTargetOfGPA() bool {
+// IsTarget GPAの計算の対象かを返す
+func (subject *Subject) IsTarget() bool {
 	return strings.Contains("SABCF", subject.Grade)
 }
 
-// CalcGP GradePointを返す
-func (subject *Subject) CalcGP() float64 {
+// GP GradePointを返す
+func (subject *Subject) GP() float64 {
 	switch subject.Grade {
 	case "S":
 		return 4.3 * subject.Credit
@@ -28,9 +28,9 @@ func (subjects *Subjects) GPA() float64 {
 	creditSum := 0.0
 	gradePointSum := 0.0
 	for _, subject := range *subjects {
-		if subject.isTargetOfGPA() {
+		if subject.IsTarget() {
 			creditSum += subject.Credit
-			gradePointSum += subject.CalcGP()
+			gradePointSum += subject.GP()
 		}
 	}
 	if creditSum == 0.0 {
