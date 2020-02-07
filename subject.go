@@ -28,16 +28,16 @@ type Subject struct {
 type Subjects []*Subject
 
 // FromReader Readerから読んでSubjectsにして返す
-func FromReader(r io.Reader) (*Subjects, error) {
-	s := &Subjects{}
-	if err := json.NewDecoder(r).Decode(s); err != nil {
+func FromReader(r io.Reader) (Subjects, error) {
+	s := Subjects{}
+	if err := json.NewDecoder(r).Decode(&s); err != nil {
 		return nil, err
 	}
 	return s, nil
 }
 
 // FromFile Fileから読んでSubjectsにして返す
-func FromFile(filename string) (*Subjects, error) {
+func FromFile(filename string) (Subjects, error) {
 	f, err := os.Open(filename)
 	if err != nil {
 		return nil, err
@@ -49,12 +49,12 @@ func FromFile(filename string) (*Subjects, error) {
 type FilterFunc func(*Subject) bool
 
 // Filter 与えた条件に一致するSubjectsを返す
-func (subjects *Subjects) Filter(filterFn FilterFunc) *Subjects {
+func (subjects Subjects) Filter(filterFn FilterFunc) Subjects {
 	res := Subjects{}
-	for _, subject := range *subjects {
+	for _, subject := range subjects {
 		if filterFn(subject) {
 			res = append(res, subject)
 		}
 	}
-	return &res
+	return res
 }

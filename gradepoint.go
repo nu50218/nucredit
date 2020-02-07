@@ -24,10 +24,10 @@ func (subject *Subject) GP() float64 {
 }
 
 // GPA GPAを返す
-func (subjects *Subjects) GPA() float64 {
+func (subjects Subjects) GPA() float64 {
 	creditSum := 0.0
 	gradePointSum := 0.0
-	for _, subject := range *subjects {
+	for _, subject := range subjects {
 		if subject.IsTarget() {
 			creditSum += subject.Credit
 			gradePointSum += subject.GP()
