@@ -1,5 +1,10 @@
 package nucredit
 
+import (
+	"encoding/json"
+	"io"
+)
+
 // Subject 科目
 type Subject struct {
 	// Category 科目区分
@@ -19,15 +24,27 @@ type Subject struct {
 }
 
 // Subjects 科目列
-type Subjects []Subject
+type Subjects []*Subject
+
+// FromReader Readerから読んでSubjectsにして返す
+func FromReader(r io.Reader) (*Subjects, error) {
+	s := &Subjects{}
+	if err := json.NewDecoder(r).Decode(s); err != nil {
+		return nil, err
+	}
+	return s, nil
+}
+
+// FilterFunc フィルタリングの条件
+type FilterFunc func(*Subject) bool
 
 // Filter 与えた条件に一致するSubjectsを返す
-func (subjects Subjects) Filter(condition func(*Subject) bool) Subjects {
+func (subjects *Subjects) Filter(filterFn FilterFunc) *Subjects {
 	res := Subjects{}
-	for _, subject := range subjects {
-		if condition(&subject) {
+	for _, subject := range *subjects {
+		if filterFn(subject) {
 			res = append(res, subject)
 		}
 	}
-	return res
+	return &res
 }

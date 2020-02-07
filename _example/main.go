@@ -1,10 +1,3 @@
-# nucredit
-
-名大の修得科目jsonファイルを扱うライブラリ
-
-## sample code
-
-```go
 package main
 
 import (
@@ -33,4 +26,3 @@ func main() {
 	})
 	fmt.Println("2019 GPA:", s2019.GPA())
 }
-```
