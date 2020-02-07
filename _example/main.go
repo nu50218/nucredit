@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	f, err := os.Open("subjects.json")
+	f, err := os.Open("credit.json")
 	if err != nil {
 		log.Fatal(err)
 	}
